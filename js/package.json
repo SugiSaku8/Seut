@@ -1,11 +1,11 @@
 {
-  "name": "sort",
-  "version": "0.0.0",
+  "name": "seut",
+  "version": "0.0.1",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Carnation Studio",
   "license": "ISC",
-  "description": ""
+  "description": "Sart is Socicaly Network For System"
 }
