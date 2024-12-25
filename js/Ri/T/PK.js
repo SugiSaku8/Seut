@@ -1,8 +1,6 @@
-export const PK = class{
-  
-}
+export const PK = class {};
 export const v = {
-    check:function(binary){
-        return 0;
-    }
-}
+  check: function (binary) {
+    return 0;
+  },
+};

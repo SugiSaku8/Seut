@@ -22,7 +22,7 @@ export function init(a, type) {
 function init_ram(a) {
   size = a.size;
   const alphabet = "abcdefghijklmnopqrstuvwxyz";
-  const numbers = Array.from({ length: 256 }, (_, i) => i.toString());
+  const numbers = Array.from({ length: 100000000 }, (_, i) => i.toString());
   let counter = 0;
   for (let char of alphabet) {
     if (counter >= size) break;
@@ -61,10 +61,11 @@ function init_storage(a) {
   return a;
 }
 
-export function get_blank(){
-  return Object.keys(obj).find(key => obj[key] === null);
+export function get_blank() {
+  return Object.keys(obj).find((key) => obj[key] === null);
 }
-export function get_ntn_blank(){
+
+export function get_ntn_blank() {
   const keys = Object.keys(obj);
   const firstEmpty = findFirstEmptyVariable(obj);
   const index = keys.indexOf(firstEmpty);
