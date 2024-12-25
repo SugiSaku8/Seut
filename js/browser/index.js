@@ -1,14 +1,15 @@
-import DC from "./DC/main.js";
-import geral from "./geral/main.js";
-import spe_cmd from "./special-cmd/main.js";
+import DC from "seut/DC/main.js";
+import geral from "seut/geral/main.js";
+import spe_cmd from "seut/special-cmd/main.js";
 import {
   init,
   init_ram,
   init_storage,
   get_blank,
   get_ntn_blank,
-} from "./utils.js";
-const sort = {
+} from "seut/utils.js";
+
+export const seut = {
   init: function (name, type) {
     if ((type = "liquidity")) {
       let ram = {
@@ -16,6 +17,7 @@ const sort = {
       };
       try {
         name = new DC(ram);
+        return name;
       } catch (e) {
         console.error("Network could not be initialized.\n" + e);
       }

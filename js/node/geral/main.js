@@ -1,4 +1,4 @@
-export function geral(m0, m1, config) {
+ const geral = function(m0, m1, config) {
   let name = m0.name;
   let sender = m0.sender;
   let version = m0.version;
@@ -25,3 +25,4 @@ export function geral(m0, m1, config) {
   m1.log[new Data()] = "The entrusted order has been terminated.";
   return true;
 }
+export default geral;

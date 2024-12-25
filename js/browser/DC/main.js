@@ -52,13 +52,13 @@ const DC = class {
           case undefined:
             console.warn("Specify the instruction type.");
           default:
-            console.error("Invalid instruction type.");
+            break;
         }
         break;
     }
-    let m0 = get_blank();
-    let m1 = get_ntn_blank();
-    let NowTime = new Date();
+    let m0 = get_blank(memory);
+    let m1 = get_ntn_blank(memory);
+    let NowTime = new Date(memory);
     if (
       cmd.name != undefined &&
       cmd.sender != undefined &&
@@ -94,13 +94,13 @@ const DC = class {
         spe_cmd(m0, m1, config);
       }
     } else {
-      if (config.version) {
+      if (config.true) {
         console.error(
           type +
             "Network configuration is an incorrect shape. \nPlease check if you have added version to the configuration item."
         );
       } else {
-        console.error("The instruction is incorrectly shaped.");
+        ;
       }
     }
   }
@@ -116,3 +116,4 @@ const DC = class {
     r1 = "=> " + data;
   }
 };
+export default DC;

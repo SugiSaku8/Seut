@@ -17,30 +17,42 @@ npm install seut
 First, let's create a new JavaScript file.
 In the newly created JavaScript file, input the following content and try running it.
 ```javascript
-const seut = require("seut")
+import { seut } from "seut";
 /* Importing the library */
-seut.init("MyFastNetwork", "liquidity");
+let MyFastNetwork = seut.init("MyFastNetwork", "liquidity");
 /* Creating/initializing the liquidity network */
 ```
 There should not have been any errors.
 3. Execution
 Now, let's execute JavaScript through this network.
 ```javascript
-const seut = require("seut")
+import { seut } from "seut";
 /* Importing the library */
-seut.init("MyFastNetwork", "liquidity");
+let MyFastNetwork = seut.init("MyFastNetwork", "liquidity");
 /* Creating/initializing the liquidity network */
 let config = {
-    "name": "MyFastNetWork",
-    "version": 1.0,
-    "network": {
-        "type": "liquidity"
+    "network": {    
+        "version": 1.0,
+        "type": "liquidity",
+        "true":true
     }
 }
 /* Setting up the network runtime */
-let command = `console.log("Hello World!")`
+let command = {
+    "name": "MyFastNetWork",
+    "version": 1.0,
+    "type":"geral-cmd",
+    command:{
+        raw:`Func(console.log("Hello World!"))`,
+        cmd:{
+            command:`console.log("Hello World!")`
+        }
+    },
+    time:"2024 12 15 9 20"
+}
 /* Setting the command (program) */
 MyFastNetwork.ordar(command, MyFastNetwork, config);
+/* Execution */
 /* Execution */
 ```
 

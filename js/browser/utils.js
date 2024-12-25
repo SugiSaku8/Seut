@@ -1,5 +1,5 @@
 let size;
-export function init(a, type) {
+export const init = function(a, type) {
   switch (type) {
     case "memory":
       init_ram(a);
@@ -19,7 +19,7 @@ export function init(a, type) {
   }
 }
 
-function init_ram(a) {
+export  function init_ram(a) {
   size = a.size;
   const alphabet = "abcdefghijklmnopqrstuvwxyz";
   const numbers = Array.from({ length: 100000000 }, (_, i) => i.toString());
@@ -40,7 +40,7 @@ function init_ram(a) {
   return a;
 }
 
-function init_storage(a) {
+export  function init_storage(a) {
   size = a.size;
   const alphabet = "abcdefghijklmnopqrstuvwxyz";
   const numbers = Array.from({ length: 256 }, (_, i) => i.toString());
@@ -61,13 +61,15 @@ function init_storage(a) {
   return a;
 }
 
-export function get_blank() {
+export  function get_blank(obj) {
   return Object.keys(obj).find((key) => obj[key] === null);
 }
 
-export function get_ntn_blank() {
+export  function get_ntn_blank(obj) {
   const keys = Object.keys(obj);
-  const firstEmpty = findFirstEmptyVariable(obj);
+  const firstEmpty = get_blank(obj);
   const index = keys.indexOf(firstEmpty);
   return index !== -1 ? keys[index + 1] : null;
 }
+
+//export default init;

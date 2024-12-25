@@ -1,4 +1,4 @@
-export function spe_cmd(m0, m1, config) {
+ const geral = function(m0, m1, config) {
   let name = m0.name;
   let sender = m0.sender;
   let version = m0.version;
@@ -16,7 +16,7 @@ export function spe_cmd(m0, m1, config) {
   m1.log[new Data()] = "Notify the command post of the consignment.";
   config.DC.post(report);
   try {
-    let result = cmd.command();
+    cmd.command();
   } catch (e) {
     console.error("Error occurs at consignment site.\n" + e);
     m1.log[new Data()] = "Error occurs at consignment site.\n" + e;
@@ -25,3 +25,4 @@ export function spe_cmd(m0, m1, config) {
   m1.log[new Data()] = "The entrusted order has been terminated.";
   return true;
 }
+export default geral;
