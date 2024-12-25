@@ -71,10 +71,10 @@ const DC = class{
             }
             DCclass.ram[m1] = m1_obj;
             if(type = 'geral-cmd'){
-                geral(m0,m1);
+                geral(m0,m1,config);
             }
             if(type = 'special-cmd'){
-                spe_cmd(m0,m1);
+                spe_cmd(m0,m1,config);
             }
         }else{
             if(config.version){
@@ -86,5 +86,13 @@ const DC = class{
     }
     get(){
         return this.ram;
+    }
+    post(req){
+        let ID = req.id;
+        let data = req.data;
+        let r0 = get_blank();
+        let r1 = get_ntn_blank();
+        r0 = "awarded:"+ID
+        r1 = "=> "+data
     }
 }
