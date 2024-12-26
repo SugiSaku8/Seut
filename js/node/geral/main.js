@@ -1,10 +1,10 @@
- const geral = function(m0, m1, config) {
+const geral = function(m0, m1, config) {
   let name = m0.name;
   let sender = m0.sender;
   let version = m0.version;
   let awaTime = new Date();
   let cmd = {
-    make: m0.cmd.time,
+    make: m0.cmd.make,
     command: m0.cmd.command,
   };
   let report = {

@@ -1,13 +1,12 @@
 import connect from "../connect/connect.js";
 export const pycmd = {
-  run: function (m0, m1, config) {
+  run: async function(m0, m1, config) {
     let name = m0.name;
     let sender = m0.sender;
     let version = m0.version;
     let awaTime = new Date();
     let cmd = {
-      make: m0.cmd.time,
-      command: m0.cmd.command,
+      command: m0.cmd,
     };
     let report = {
       Name: name,
@@ -18,23 +17,23 @@ export const pycmd = {
     m1.log[new Data()] = "Pycmd:Notify the command post of the consignment.";
     config.DC.post(report);
     if ((config.raw.pycmd.type = "AI")) {
-      pycmd.ml(m0, m1, config);
+      await pycmd.ml(m0, m1, config);
     }
     if ((config.raw.pycmd.type = "general")) {
-      pycmd.geral(m0, m1, config);
+      await pycmd.geral(m0, m1, config);
     }
   },
   geral: function (m0, m1, config) {
     console.warn("Pycmd:This feature is not implemented.");
   },
-  ml: function (m0, m1, config) {
+  ml: async function (m0, m1, config) {
     let name = m0.name;
     let sender = m0.sender;
     let version = m0.version;
     let awaTime = new Date();
     let cmd = {
-      make: m0.cmd.time,
-      command: m0.cmd.command,
+      make: m0.time,
+      command: m0.cmd,
     };
     let report = {
       Name: name,
@@ -58,7 +57,7 @@ export const pycmd = {
           rawObj: c0.cmd,
         },
       };
-      let r_data = connect(data, 3982);
+      let r_data = await connect(data, 3982);
     } catch (e) {
       console.error("Pycmd-ML:Request failed.\n" + e);
       m1.log[new Date()] = "Pycmd-ML:Request failed.\n" + e;
@@ -66,6 +65,7 @@ export const pycmd = {
     }
     m1.log[new Date()] = "Pycmd-ML:The entrusted order has been terminated.";
     try {
+      console.log(t_data)
       return t_data;
     } catch (e) {
       console.error("Pycmd-ML:Invalid server response.\n" + e);

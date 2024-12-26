@@ -3,15 +3,35 @@ import { v } from "../Ri/T/PK.js";
 import geral from "../geral/main.js";
 import spe_cmd from "../special-cmd/main.js";
 import pycmd from "../pycmd/pycmd.js";
+import readline from 'readline';
 const DC = class {
   constructor(ram) {
-    init(ram, "memory");
+    const rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout
+    });
+    let progress = 0;
+    readline.moveCursor(process.stdout, -process.stdout.columns, 1);
+    readline.clearLine(process.stdout, 0); 
+    process.stdout.write(`DC init Progress: ${progress}%`);
+    init(ram, "memory",100);
+    readline.moveCursor(process.stdout, -process.stdout.columns, 0);
+    readline.clearLine(process.stdout, 0); 
+    progress = 50;
+    process.stdout.write(`DC init Progress: ${progress}%`);
     this.ram = ram;
+    readline.moveCursor(process.stdout, -process.stdout.columns, 0);
+    readline.clearLine(process.stdout, 0); 
+    progress = 100;
+    process.stdout.write(`DC init Progress: ${progress}%`);
+
+    console.log('\nDC initialization is complete!');
+    rl.close();
   }
-  ordar(cmd, DCclass, config) {
+  async ordar(cmd, config) {
     let type;
     let memory;
-    memory = DCclass.get();
+    memory = this.get();
     type = cmd.type;
     switch (type) {
       case "geral-cmd":
@@ -49,7 +69,7 @@ const DC = class {
       case "pycmd":
         switch(config.pycmd.type){
           case "AI":
-            if(config.pycmd.ml.runtime != null){
+            if(config.pycmd.ml.runtime = null){
                   console.warn("Runtime is not specified. \nUse the default CPU runtime.")
             }
         }
@@ -78,7 +98,7 @@ const DC = class {
         name: cmd.name,
         sender: cmd.sender,
         version: config.version,
-        cmd: {
+        "cmd": {
           make: cmd.time,
           command: cmd.cmd.command,
         },
@@ -90,22 +110,26 @@ const DC = class {
           raw:config
         }
       };
-      DCclass.ram[m0] = m0_obj;
+      this.ram[m0] = m0_obj;
       let m1_obj = {
         log: {
           Nowtime:
             "Slots were allocated and orders were sent to various agencies.",
         },
       };
-      DCclass.ram[m1] = m1_obj;
-      if ((type = "geral-cmd")) {
+      this.ram[m1] = m1_obj;
+      console.log(this.ram[m0])
+      if ((type === "geral-cmd")) {
         geral(m0, m1, config);
+        console.log("Entrusted to Geral.")
       }
-      if ((type = "special-cmd")) {
+      if ((type === "special-cmd")) {
         spe_cmd(m0, m1, config);
+        console.log("Entrusted to Specia-cmd")
       }
-      if((type = "pycmd")){
-        pycmd.run(m0,m1,config);
+      if((type === "pycmd")){
+        await pycmd.run(m0,m1,config);
+        console.log("Entrusted to PyCmd")
       }
     } else {
       if (config.true) {
@@ -113,8 +137,26 @@ const DC = class {
           type +
             "Network configuration is an incorrect shape. \nPlease check if you have added version to the configuration item."
         );
-      } else {
-        ;
+      }
+      if(typeof cmd.name == 'undefined'){
+console.error("The cmd object must have a name element.")
+      }
+      if(typeof cmd.sender  ==  'undefined'){
+        console.error("The cmd object must have a sender element.")
+
+      }
+      if(typeof config.version  == 'undefined'){
+        console.error("The cmd object must have a version element.")
+
+      }
+      if(typeof cmd.time == 'undefined'){
+        console.error("The cmd object must have a time element.")
+
+      }
+      if(typeof cmd.cmd==  'undefined'){
+        console.error("A cmd object requires a cmd element.")
+        console.error("The cmd.cmd object requires a command object.")
+        console.error("Of course. If you don't specify an order, the command post won't do anything for you, okay?")
       }
     }
   }

@@ -10,14 +10,14 @@ import {
 } from "seut/utils.js";
 
 export const seut = {
-  init: function (name, type) {
+  init: function (type) {
     if ((type = "liquidity")) {
       let ram = {
         size: 10000,
       };
       try {
-        name = new DC(ram);
-        return name;
+       let network = new DC(ram);
+        return network;
       } catch (e) {
         console.error("Network could not be initialized.\n" + e);
       }

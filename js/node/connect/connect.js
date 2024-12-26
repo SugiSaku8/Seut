@@ -1,5 +1,6 @@
  export default async function connect(data,port) {
     try {
+      console.log("Connect to the backend server.")
       const response = await fetch('http://localhost:'+port, {
         method: 'POST',
         headers: {
