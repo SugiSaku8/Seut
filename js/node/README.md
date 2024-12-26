@@ -53,7 +53,6 @@ let command = {
 /* Setting the command (program) */
 MyFastNetwork.ordar(command, MyFastNetwork, config);
 /* Execution */
-/* Execution */
 ```
 
 # Author

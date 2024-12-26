@@ -2,6 +2,7 @@ import { init, get_blank, get_ntn_blank } from "../utils.js";
 import { v } from "../Ri/T/PK.js";
 import geral from "../geral/main.js";
 import spe_cmd from "../special-cmd/main.js";
+import pycmd from "../pycmd/pycmd.js";
 const DC = class {
   constructor(ram) {
     init(ram, "memory");
@@ -45,6 +46,13 @@ const DC = class {
           default:
             break;
         }
+      case "pycmd":
+        switch(config.pycmd.type){
+          case "AI":
+            if(config.pycmd.ml.runtime != null){
+                  console.warn("Runtime is not specified. \nUse the default CPU runtime.")
+            }
+        }
       default:
         switch (type) {
           case null:
@@ -78,6 +86,9 @@ const DC = class {
           make: NowTime,
           slot: m0,
         },
+        config:{
+          raw:config
+        }
       };
       DCclass.ram[m0] = m0_obj;
       let m1_obj = {
@@ -92,6 +103,9 @@ const DC = class {
       }
       if ((type = "special-cmd")) {
         spe_cmd(m0, m1, config);
+      }
+      if((type = "pycmd")){
+        pycmd.run(m0,m1,config);
       }
     } else {
       if (config.true) {

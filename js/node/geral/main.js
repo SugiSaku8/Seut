@@ -13,16 +13,16 @@
     "Config Version": version,
     Awarded: awaTime,
   };
-  m1.log[new Data()] = "Notify the command post of the consignment.";
+  m1.log[new Date()] = "Geral:Notify the command post of the consignment.";
   config.DC.post(report);
   try {
-    cmd.command();
+    Func(cmd.command);
   } catch (e) {
-    console.error("Error occurs at consignment site.\n" + e);
-    m1.log[new Data()] = "Error occurs at consignment site.\n" + e;
+    console.error("Geral:Error occurs at consignment site.\n" + e);
+    m1.log[new Date()] = "Geral:Error occurs at consignment site.\n" + e;
     return false;
   }
-  m1.log[new Data()] = "The entrusted order has been terminated.";
+  m1.log[new Date()] = "Geral:The entrusted order has been terminated.";
   return true;
 }
 export default geral;
