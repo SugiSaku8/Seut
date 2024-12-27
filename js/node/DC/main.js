@@ -5,7 +5,7 @@ import spe_cmd from "../special-cmd/main.js";
 import pycmd from "../pycmd/pycmd.js";
 import readline from 'readline';
 const DC = class {
-  constructor(ram) {
+  constructor(ram,SIZE) {
     const rl = readline.createInterface({
       input: process.stdin,
       output: process.stdout
@@ -14,7 +14,7 @@ const DC = class {
     readline.moveCursor(process.stdout, -process.stdout.columns, 1);
     readline.clearLine(process.stdout, 0); 
     process.stdout.write(`DC init Progress: ${progress}%`);
-    init(ram, "memory",100);
+    init(ram, "memory",SIZE);
     readline.moveCursor(process.stdout, -process.stdout.columns, 0);
     readline.clearLine(process.stdout, 0); 
     progress = 50;
@@ -35,6 +35,7 @@ const DC = class {
     type = cmd.type;
     switch (type) {
       case "geral-cmd":
+        console.log("Instructions are processed by Geral-cmd")
         switch (config.network.type) {
           case "cell":
             switch (v.check(cmd.command.raw)) {
@@ -48,7 +49,7 @@ const DC = class {
                 };
             }
           default:
-            break;
+            ;
         }
       case "special-cmd":
         switch (config.network.type) {
@@ -66,7 +67,7 @@ const DC = class {
           default:
             break;
         }
-      case "pycmd":
+     /* case "pycmd":
         switch(config.pycmd.type){
           case "AI":
             if(config.pycmd.ml.runtime = null){
@@ -81,46 +82,42 @@ const DC = class {
             console.warn("Specify the instruction type.");
           default:
             break;
-        }
+        }*/
         break;
     }
     let m0 = get_blank(memory);
+    console.log("Priority free memory ID:"+m0);
     let m1 = get_ntn_blank(memory);
-    let NowTime = new Date(memory);
+    console.log("Next-Priority free memory ID:"+m1);
+    let NowTime = new Date();
+    console.log("Maked Time: "+NowTime)
     if (
-      cmd.name != undefined &&
-      cmd.sender != undefined &&
-      config.version != undefined &&
-      cmd.time != undefined &&
-      cmd.cmd.command != undefined
-    ) {
+      cmd.name !== undefined ||
+      cmd.sender !== undefined ||
+      config.version !== undefined ||
+      cmd.time !== undefined ||
+      cmd.cmd.command !== undefined
+    ){
       let m0_obj = {
         name: cmd.name,
         sender: cmd.sender,
         version: config.version,
-        "cmd": {
           make: cmd.time,
-          command: cmd.cmd.command,
-        },
-        build: {
+          command: cmd.cmd,
           make: NowTime,
           slot: m0,
-        },
-        config:{
-          raw:config
+          config_raw:config
         }
-      };
       this.ram[m0] = m0_obj;
       let m1_obj = {
         log: {
-          Nowtime:
-            "Slots were allocated and orders were sent to various agencies.",
+          OrdarTime:
+            NowTime+" :Slots were allocated and orders were sent to various agencies.",
         },
       };
       this.ram[m1] = m1_obj;
-      console.log(this.ram[m0])
       if ((type === "geral-cmd")) {
-        geral(m0, m1, config);
+        geral(this.ram[m0], this.ram[m1], config);
         console.log("Entrusted to Geral.")
       }
       if ((type === "special-cmd")) {
@@ -163,11 +160,11 @@ console.error("The cmd object must have a name element.")
   get() {
     return this.ram;
   }
-  post(req) {
+  post(req,m1) {
     let ID = req.id;
     let data = req.data;
-    let r0 = get_blank();
-    let r1 = get_ntn_blank();
+    let r0 = get_blank(m1);
+    let r1 = get_ntn_blank(m1);
     r0 = "awarded:" + ID;
     r1 = "=> " + data;
   }

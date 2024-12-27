@@ -1,11 +1,11 @@
-const geral = function(m0, m1, config) {
+const geral = function (m0, m1, config) {
   let name = m0.name;
   let sender = m0.sender;
   let version = m0.version;
   let awaTime = new Date();
   let cmd = {
-    make: m0.cmd.make,
-    command: m0.cmd.command,
+    make: m0.make,
+    cmd: m0.command,
   };
   let report = {
     Name: name,
@@ -13,16 +13,24 @@ const geral = function(m0, m1, config) {
     "Config Version": version,
     Awarded: awaTime,
   };
-  m1.log[new Date()] = "Geral:Notify the command post of the consignment.";
-  config.DC.post(report);
+  const ordartime = m1.log.OrdarTime;
+  let history = {
+    OrdarTime: ordartime,
+    CommandRunTime:Date.now()+": Geral:Notify the command post of the consignment."
+  };
+  m1.log = history;
+  console.log("logging to Memory")
+  config.DC.post(report,m1);
   try {
-    Func(cmd.command);
+    console.log("Execute with Geral-cmd. Programs to run:"+cmd.cmd)
+    let result = Function(cmd.cmd)();
+    m1.log[new Date()] = "Geral:The entrusted order has been terminated.";
+    return result;
   } catch (e) {
     console.error("Geral:Error occurs at consignment site.\n" + e);
     m1.log[new Date()] = "Geral:Error occurs at consignment site.\n" + e;
     return false;
   }
-  m1.log[new Date()] = "Geral:The entrusted order has been terminated.";
-  return true;
-}
+ 
+};
 export default geral;
