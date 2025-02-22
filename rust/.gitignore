@@ -21,3 +21,4 @@ dist-ssr
 node_modules
 ./target/*
 ./target
+target

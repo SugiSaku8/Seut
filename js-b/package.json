@@ -1,0 +1,12 @@
+{
+  "name": "seut-browser",
+  "version": "0.1.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Carnation Studio",
+  "license": "MPL",
+  "description": "Sart is Socicaly Network For System",
+  "type": "module"
+}
